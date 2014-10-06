@@ -119,45 +119,50 @@ def hangman(secretWord):
 
     Follows the other limitations detailed in the problem write-up.
     '''
-    #Total number of guesses available to user for a word is 10
+    # Total number of guesses available to user for a word is 10
     numberOfGuesses = MAX_GUESS
-    # The List containing user's guesses letters
+    # An empty list to which user's correct guesses are added
     lettersGuessed = {}
-    # Intro message
-    print 'Welcome to Hangman..!!'
-    print 'The length of secret word is %s.' %(str(len(secretWord)))
+    # Welcome message
+    print 'Welcome to Hangman..! The word guessing game.'
+    print 'The length of the secret word is %s.' %(str(len(secretWord)))
+    print 'Guess the word.'
+    for i in range(len(secretWord)):
+        print '_',
+    print '\n'
     
     while True:
         
         if not isWordGuessed(secretWord , lettersGuessed):
-            #not guessed
+            # Word not guessed
             if numberOfGuesses == 0:
                 # all guesses exhausted
-                print 'Sorry , GAME OVER. The word is %s' %(secretWord)
+                print 'Sorry , YOU LOST. :(  \nThe word is %s' %(secretWord)
                 break
             else:
-                #guesses left , displa guesses left and available letter
+                # Displaying number of guesses left and available letters
                 print 'You have %s guesses left.' %(str(numberOfGuesses))
                 print 'Available letters : %s' %(getAvailableLetters(lettersGuessed))
-                #user input
-                guessedLetter = raw_input('Please enter a letter: ')
+                # Taking user input
+                guessedLetter = raw_input('\nPlease enter a letter: ')
 
                 if guessedLetter in lettersGuessed:
-                    #Already guessed
+                    # If already guessed letter is entered
                     print 'Already guessed this letter %s' %(getGuessedWord(secretWord , lettersGuessed))
                 else:
-                    #new guess , add to list
+                    # New letter is guessed by the user
                     lettersGuessed[guessedLetter] = True
+                    # Wrong guess
                     if guessedLetter not in secretWord:
                         print 'Letter not in Secret word : %s' %(getGuessedWord(secretWord , lettersGuessed))
                         numberOfGuesses -= 1
                     else:
-                        #correct guess
+                        # Right guess
                         print 'Good guess: %s' %(getGuessedWord(secretWord , lettersGuessed))
 
         else:
-            #Word guessed
-            print 'Word guessed , You Won!'
+            # Complete word is guessed
+            print 'Congratulations , YOU WON. :) '
             break
 
 
